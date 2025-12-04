@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stardew Tracker List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Stardew Valley Crop Tracker</h1>
+        <p>Marque as colheitas que já foram entregues no correio!</p>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="🔎 Pesquisar colheita..." aria-label="Pesquisar colheita">
+        </div>
+
+        <section id="seasons-container">
+            <div class="season-card" data-season="spring">
+                <h2>🌸 Primavera</h2>
+                <ul class="crop-list">
+                    <li data-crop="couve-flor">Couve-flor</li>
+                    <li data-crop="grao-de-cafe">Grão de Café</li>
+                    <li data-crop="alho">Alho</li>
+                    <li data-crop="vagem">Vagem</li>
+                    <li data-crop="couve">Couve</li>
+                    <li data-crop="nabo">Nabo</li>
+                    <li data-crop="batata">Batata</li>
+                    <li data-crop="ruibarbo">Ruibarbo</li>
+                    <li data-crop="morango">Morango</li>
+                </ul>
+            </div>
+
+            <div class="season-card" data-season="summer">
+                <h2>☀️ Verão</h2>
+                <ul class="crop-list">
+                    <li data-crop="mirtilo">Mirtilo</li>
+                    <li data-crop="milho">Milho</li>
+                    <li data-crop="lupulo">Lúpulo</li>
+                    <li data-crop="pimenta-picante">Pimenta Picante</li>
+                    <li data-crop="melao">Melão</li>
+                    <li data-crop="rabanete">Rabanete</li>
+                    <li data-crop="repolho-roxo">Repolho Roxo</li>
+                    <li data-crop="carambola">Carambola</li>
+                    <li data-crop="tomate">Tomate</li>
+                    <li data-crop="trigo">Trigo</li>
+                </ul>
+            </div>
+
+            <div class="season-card" data-season="fall">
+                <h2>🍁 Outono</h2>
+                <ul class="crop-list">
+                    <li data-crop="amaranto">Amaranto</li>
+                    <li data-crop="alcachofra">Alcachofra</li>
+                    <li data-crop="beterraba">Beterraba</li>
+                    <li data-crop="acelga-chinesa">Acelga Chinesa</li>
+                    <li data-crop="oxicoco">Oxicoco (Cranberry)</li>
+                    <li data-crop="berinjela">Berinjela</li>
+                    <li data-crop="uva">Uva</li>
+                    <li data-crop="abobora">Abóbora</li>
+                    <li data-crop="inhame">Inhame</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

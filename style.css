@@ -1,0 +1,94 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f3e8; 
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #5cb85c;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.search-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#searchInput {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+#seasons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.season-card {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    flex: 1 1 300px; 
+    min-width: 280px;
+}
+
+.season-card h2 {
+    color: #2e8b57;
+    border-bottom: 2px solid #5cb85c;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.crop-list {
+    list-style: none;
+    padding: 0;
+}
+
+.crop-list li {
+    padding: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px dashed #eee;
+    display: flex;
+    align-items: center;
+}
+
+.crop-list li:hover {
+    background-color: #f0f0f0;
+}
+
+/*estilo da marcacao do item */
+.crop-list li.completed {
+    text-decoration: line-through;
+    color: #a9a9a9;
+}
+
+.crop-list li.completed::before {
+    content: "✅";
+    margin-right: 10px;
+}
+
+.crop-list li:not(.completed)::before {
+    content: "☐";
+    margin-right: 10px;
+}
