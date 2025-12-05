@@ -3,65 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stardew Tracker List</title>
+    <title>Stardew Valley: Rastreador de Conquistas</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
-        <h1>Stardew Valley Crop Tracker</h1>
-        <p>Marque as colheitas que já foram entregues no correio!</p>
+        <div class="header-content">
+            <h1>📦 Rastreador de Remessas</h1>
+            <p>Marque a quantidade enviada 
+            (Requerido: 15 de cada para "Policultura")</p>
+        </div>
     </header>
 
     <main>
-        <div class="search-container">
+        <div class="search-container wiki-box">
             <input type="text" id="searchInput" placeholder="🔎 Pesquisar colheita..." aria-label="Pesquisar colheita">
         </div>
 
         <section id="seasons-container">
-            <div class="season-card" data-season="spring">
-                <h2>🌸 Primavera</h2>
+            <div class="season-card wiki-box" data-season="spring">
+                <h2 class="wiki-header">🌸 Primavera</h2>
                 <ul class="crop-list">
-                    <li data-crop="couve-flor">Couve-flor</li>
-                    <li data-crop="grao-de-cafe">Grão de Café</li>
-                    <li data-crop="alho">Alho</li>
-                    <li data-crop="vagem">Vagem</li>
-                    <li data-crop="couve">Couve</li>
-                    <li data-crop="nabo">Nabo</li>
-                    <li data-crop="batata">Batata</li>
-                    <li data-crop="ruibarbo">Ruibarbo</li>
-                    <li data-crop="morango">Morango</li>
+                    <li data-crop="couve-flor"><span class="crop-name">Couve-flor</span></li>
+                    <li data-crop="grao-de-cafe"><span class="crop-name">Grão de Café</span></li>
+                    <li data-crop="alho"><span class="crop-name">Alho</span></li>
+                    <li data-crop="feijao-verde"><span class="crop-name">Feijão-verde</span></li>
+                    <li data-crop="couve"><span class="crop-name">Couve</span></li>
+                    <li data-crop="nabo"><span class="crop-name">Nabo</span></li>
+                    <li data-crop="batata"><span class="crop-name">Batata</span></li>
+                    <li data-crop="ruibarbo"><span class="crop-name">Ruibarbo</span></li>
+                    <li data-crop="morango"><span class="crop-name">Morango</span></li>
                 </ul>
             </div>
 
-            <div class="season-card" data-season="summer">
-                <h2>☀️ Verão</h2>
+            <div class="season-card wiki-box" data-season="summer">
+                <h2 class="wiki-header">☀️ Verão</h2>
                 <ul class="crop-list">
-                    <li data-crop="mirtilo">Mirtilo</li>
-                    <li data-crop="milho">Milho</li>
-                    <li data-crop="lupulo">Lúpulo</li>
-                    <li data-crop="pimenta-picante">Pimenta Picante</li>
-                    <li data-crop="melao">Melão</li>
-                    <li data-crop="rabanete">Rabanete</li>
-                    <li data-crop="repolho-roxo">Repolho Roxo</li>
-                    <li data-crop="carambola">Carambola</li>
-                    <li data-crop="tomate">Tomate</li>
-                    <li data-crop="trigo">Trigo</li>
+                    <li data-crop="mirtilo"><span class="crop-name">Mirtilo</span></li>
+                    <li data-crop="milho"><span class="crop-name">Milho</span></li>
+                    <li data-crop="lupulo"><span class="crop-name">Lúpulo</span></li>
+                    <li data-crop="pimenta-picante"><span class="crop-name">Pimenta Picante</span></li>
+                    <li data-crop="melao"><span class="crop-name">Melão</span></li>
+                    <li data-crop="rabanete"><span class="crop-name">Rabanete</span></li>
+                    <li data-crop="repolho-roxo"><span class="crop-name">Repolho Roxo</span></li>
+                    <li data-crop="fruta-estelar"><span class="crop-name">Carambola</span></li>
+                    <li data-crop="tomate"><span class="crop-name">Tomate</span></li>
+                    <li data-crop="trigo"><span class="crop-name">Trigo</span></li>
                 </ul>
             </div>
 
-            <div class="season-card" data-season="fall">
-                <h2>🍁 Outono</h2>
+            <div class="season-card wiki-box" data-season="fall">
+                <h2 class="wiki-header">🍁 Outono</h2>
                 <ul class="crop-list">
-                    <li data-crop="amaranto">Amaranto</li>
-                    <li data-crop="alcachofra">Alcachofra</li>
-                    <li data-crop="beterraba">Beterraba</li>
-                    <li data-crop="acelga-chinesa">Acelga Chinesa</li>
-                    <li data-crop="oxicoco">Oxicoco (Cranberry)</li>
-                    <li data-crop="berinjela">Berinjela</li>
-                    <li data-crop="uva">Uva</li>
-                    <li data-crop="abobora">Abóbora</li>
-                    <li data-crop="inhame">Inhame</li>
+                    <li data-crop="amaranto"><span class="crop-name">Amaranto</span></li>
+                    <li data-crop="alcachofra"><span class="crop-name">Alcachofra</span></li>
+                    <li data-crop="beterraba"><span class="crop-name">Beterraba</span></li>
+                    <li data-crop="acelga-chinesa"><span class="crop-name">Acelga Chinesa</span></li>
+                    <li data-crop="oxicoco"><span class="crop-name">Oxicoco</span></li>
+                    <li data-crop="berinjela"><span class="crop-name">Berinjela</span></li>
+                    <li data-crop="uva"><span class="crop-name">Uva</span></li>
+                    <li data-crop="abobora"><span class="crop-name">Abóbora</span></li>
+                    <li data-crop="inhame"><span class="crop-name">Inhame</span></li>
                 </ul>
             </div>
         </section>

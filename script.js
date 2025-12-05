@@ -1,63 +1,101 @@
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
-    const cropItems = document.querySelectorAll('.crop-list li');
+    const cropListItems = document.querySelectorAll('.crop-list li');
 
-    const savedState = JSON.parse(localStorage.getItem('stardewCropTracker')) || {};
-    
-    //salvar e aplicar o estado dos itens
-    cropItems.forEach(item => {
+    //chave local storage
+    const STORAGE_KEY = 'stardewShippingTracker_v1';
+
+    let savedState = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    //init interface
+    cropListItems.forEach(item => {
         const cropId = item.getAttribute('data-crop');
+        const cropNameSpan = item.querySelector('.crop-name');
         
-        //aplica o estado
-        if (savedState[cropId]) {
-            item.classList.add('completed');
+        //riar o box de botões
+        const counterBox = document.createElement('div');
+        counterBox.className = 'counter-box';
+
+        //gen botoes de 0 a 15
+        for (let i = 0; i <= 15; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = i;
+            btn.className = 'count-btn';
+            btn.dataset.value = i;
+            btn.setAttribute('aria-label', `Marcar ${i} unidades de ${cropNameSpan.textContent}`);
+            btn.addEventListener('click', handleButtonClick);
+
+            counterBox.appendChild(btn);
         }
 
-        item.addEventListener('click', () => {
-            item.classList.toggle('completed');
-            
-            //salva o estado na memoria local
-            const currentState = JSON.parse(localStorage.getItem('stardewCropTracker')) || {};
-            currentState[cropId] = item.classList.contains('completed');
-            localStorage.setItem('stardewCropTracker', JSON.stringify(currentState));
-        });
+        item.appendChild(counterBox);
+        //verifica se tem valor salvo
+        const savedValue = savedState[cropId];
+        if (savedValue !== undefined && savedValue !== null) {
+            const buttonToActivate = counterBox.querySelector(`.count-btn[data-value="${savedValue}"]`);
+            if (buttonToActivate) {
+                setActiveButton(counterBox, buttonToActivate, item);
+            }
+        } else {
+             //se nao tiver nada salvo marca 0 como padrão
+             const defaultButton = counterBox.querySelector('.count-btn[data-value="0"]');
+             setActiveButton(counterBox, defaultButton, item);
+        }
     });
 
-    //filtro de pesquisa
+    function handleButtonClick(e) {
+        const clickedBtn = e.target;
+        const counterBox = clickedBtn.parentElement;
+        const parentLi = counterBox.parentElement;
+        const cropId = parentLi.getAttribute('data-crop');
+        const value = parseInt(clickedBtn.dataset.value);
 
+        setActiveButton(counterBox, clickedBtn, parentLi);
+
+        //att o estado e salva no localStorage
+        savedState[cropId] = value;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
+    }
+
+    //fucn para gerenciar as classes visuais ativ/inativ
+    function setActiveButton(counterBox, targetBtn, parentLi) {
+        const allButtons = counterBox.querySelectorAll('.count-btn');
+        allButtons.forEach(btn => btn.classList.remove('active'));
+
+        //add a class active clicando
+        targetBtn.classList.add('active');
+
+        //se chegou a 15 marca como fully
+        if (targetBtn.dataset.value === "15") {
+            parentLi.classList.add('fully-completed');
+        } else {
+            parentLi.classList.remove('fully-completed');
+        }
+    }
+
+    //logica de pesquisa
     searchInput.addEventListener('keyup', (e) => {
         const searchTerm = e.target.value.toLowerCase().trim();
 
-        cropItems.forEach(item => {
-            const text = item.textContent.toLowerCase();
+        cropListItems.forEach(item => {
+            //revisar agora a busca so texto dentro do span .crop-name
+            const nameSpan = item.querySelector('.crop-name');
+            const text = nameSpan.textContent.toLowerCase();
             const parentCard = item.closest('.season-card');
             
-            //se o item inclui x termo
             if (text.includes(searchTerm)) {
-                item.style.display = 'flex'; 
+                item.style.display = 'flex';
             } else {
-                item.style.display = 'none'; 
+                item.style.display = 'none';
             }
+        });
 
-            //logica para esconder/mostrar o card da estação:
-            
-            parentCard.style.display = 'none';
-            
-            //todas os list estao dentro do card "pai"
-            const allItemsInCard = parentCard.querySelectorAll('li');
-            let isAnyItemVisible = false;
-
-            allItemsInCard.forEach(li => {
-                //se tiver item apos o filtro, fica visivel e vira flexbox
-
-                if (li.textContent.toLowerCase().includes(searchTerm)) {
-                    isAnyItemVisible = true;
-                }
-            });
-
-            // se tiver item, aperece card da estacao
-            if (isAnyItemVisible) {
-                parentCard.style.display = 'block'; 
+        //esconde/mostra os cards de temporada
+        document.querySelectorAll('.season-card').forEach(card => {
+            const visibleItems = card.querySelectorAll('.crop-list li[style="display: flex;"]');
+            if (visibleItems.length > 0 || searchTerm === "") {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
             }
         });
     });
