@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Acompanhe suas remessas de colheitas para a conquista Polyculture no Stardew Valley. Ferramenta não oficial feita por fã.">
+    <meta name="author" content="vinicius/GitHub">
     <title>Stardew Valley: Rastreador de Conquistas</title>
+    <link rel="icon" type="image/png" href="C:\Users\vinib\stardew-tracker\assets\icon.png">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -12,8 +15,7 @@
     <header>
         <div class="header-content">
             <h1>📦 Rastreador de Remessas</h1>
-            <p>Marque a quantidade enviada 
-            (Requerido: 15 de cada para "Policultura")</p>
+            <p>Meta: 15 de cada para "Polyculture"</p>
         </div>
     </header>
 
@@ -22,8 +24,14 @@
             <input type="text" id="searchInput" placeholder="🔎 Pesquisar colheita..." aria-label="Pesquisar colheita">
         </div>
 
+        <div class="carousel-controls">
+            <button id="prevBtn" class="nav-btn">❮ Anterior</button>
+            <span id="season-indicator">Estação 1/3</span>
+            <button id="nextBtn" class="nav-btn">Próximo ❯</button>
+        </div>
+
         <section id="seasons-container">
-            <div class="season-card wiki-box" data-season="spring">
+            <div class="season-card wiki-box active-slide" data-season="spring">
                 <h2 class="wiki-header">🌸 Primavera</h2>
                 <ul class="crop-list">
                     <li data-crop="couve-flor"><span class="crop-name">Couve-flor</span></li>
@@ -48,7 +56,7 @@
                     <li data-crop="melao"><span class="crop-name">Melão</span></li>
                     <li data-crop="rabanete"><span class="crop-name">Rabanete</span></li>
                     <li data-crop="repolho-roxo"><span class="crop-name">Repolho Roxo</span></li>
-                    <li data-crop="fruta-estelar"><span class="crop-name">Carambola</span></li>
+                    <li data-crop="fruta-estelar"><span class="crop-name">Fruta Estelar (Carambola)</span></li>
                     <li data-crop="tomate"><span class="crop-name">Tomate</span></li>
                     <li data-crop="trigo"><span class="crop-name">Trigo</span></li>
                 </ul>
@@ -60,8 +68,8 @@
                     <li data-crop="amaranto"><span class="crop-name">Amaranto</span></li>
                     <li data-crop="alcachofra"><span class="crop-name">Alcachofra</span></li>
                     <li data-crop="beterraba"><span class="crop-name">Beterraba</span></li>
-                    <li data-crop="acelga-chinesa"><span class="crop-name">Acelga Chinesa</span></li>
-                    <li data-crop="oxicoco"><span class="crop-name">Oxicoco</span></li>
+                    <li data-crop="acelga-chinesa"><span class="crop-name">Acelga Chinesa (Bok Choy)</span></li>
+                    <li data-crop="oxicoco"><span class="crop-name">Oxicoco (Cranberry)</span></li>
                     <li data-crop="berinjela"><span class="crop-name">Berinjela</span></li>
                     <li data-crop="uva"><span class="crop-name">Uva</span></li>
                     <li data-crop="abobora"><span class="crop-name">Abóbora</span></li>
@@ -70,6 +78,11 @@
             </div>
         </section>
     </main>
+    
+    <footer style="text-align: center; padding: 20px; font-size: 0.8rem; color: #5a3a22; border-top: 2px solid #9c6b44; margin-top: 40px;">
+    <p>Desenvolvido por <a href="https://github.com/vnxmello" target="_blank" style="color: #7c3314; font-weight: bold;">Vinicius Mello</a></p>
+    <p>Este é um projeto de fã não oficial. Stardew Valley é propriedade de ©ConcernedApe.</p>
+</footer>
 
     <script src="script.js"></script>
 </body>

@@ -1,42 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
+    //variaveis globais
     const searchInput = document.getElementById('searchInput');
     const cropListItems = document.querySelectorAll('.crop-list li');
-
-    //chave local storage
     const STORAGE_KEY = 'stardewShippingTracker_v1';
+    
+    //carrossel variaveis
+    const seasons = document.querySelectorAll('.season-card');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const seasonIndicator = document.getElementById('season-indicator');
+    const carouselControls = document.querySelector('.carousel-controls');
+    
+    let currentSlideIndex = 0; //0 primavera 1 verão 2 outono
 
     let savedState = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-    //init interface
+
     cropListItems.forEach(item => {
         const cropId = item.getAttribute('data-crop');
         const cropNameSpan = item.querySelector('.crop-name');
         
-        //riar o box de botões
         const counterBox = document.createElement('div');
         counterBox.className = 'counter-box';
 
-        //gen botoes de 0 a 15
         for (let i = 0; i <= 15; i++) {
             const btn = document.createElement('button');
             btn.textContent = i;
             btn.className = 'count-btn';
             btn.dataset.value = i;
-            btn.setAttribute('aria-label', `Marcar ${i} unidades de ${cropNameSpan.textContent}`);
             btn.addEventListener('click', handleButtonClick);
-
             counterBox.appendChild(btn);
         }
-
         item.appendChild(counterBox);
-        //verifica se tem valor salvo
+
         const savedValue = savedState[cropId];
         if (savedValue !== undefined && savedValue !== null) {
             const buttonToActivate = counterBox.querySelector(`.count-btn[data-value="${savedValue}"]`);
-            if (buttonToActivate) {
-                setActiveButton(counterBox, buttonToActivate, item);
-            }
+            if (buttonToActivate) setActiveButton(counterBox, buttonToActivate, item);
         } else {
-             //se nao tiver nada salvo marca 0 como padrão
              const defaultButton = counterBox.querySelector('.count-btn[data-value="0"]');
              setActiveButton(counterBox, defaultButton, item);
         }
@@ -44,43 +44,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleButtonClick(e) {
         const clickedBtn = e.target;
+        const parentLi = clickedBtn.closest('li');
         const counterBox = clickedBtn.parentElement;
-        const parentLi = counterBox.parentElement;
         const cropId = parentLi.getAttribute('data-crop');
         const value = parseInt(clickedBtn.dataset.value);
 
         setActiveButton(counterBox, clickedBtn, parentLi);
-
-        //att o estado e salva no localStorage
         savedState[cropId] = value;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(savedState));
     }
 
-    //fucn para gerenciar as classes visuais ativ/inativ
     function setActiveButton(counterBox, targetBtn, parentLi) {
         const allButtons = counterBox.querySelectorAll('.count-btn');
         allButtons.forEach(btn => btn.classList.remove('active'));
-
-        //add a class active clicando
         targetBtn.classList.add('active');
-
-        //se chegou a 15 marca como fully
-        if (targetBtn.dataset.value === "15") {
-            parentLi.classList.add('fully-completed');
-        } else {
-            parentLi.classList.remove('fully-completed');
-        }
+        if (targetBtn.dataset.value === "15") parentLi.classList.add('fully-completed');
+        else parentLi.classList.remove('fully-completed');
     }
 
-    //logica de pesquisa
+    function updateCarousel() {
+        //remove a class active slide e adiciona na atual
+        seasons.forEach((season, index) => {
+            season.classList.remove('active-slide');
+            if (index === currentSlideIndex) {
+                season.classList.add('active-slide');
+            }
+        });
+        
+        const seasonNames = ["Primavera", "Verão", "Outono"];
+        seasonIndicator.textContent = `${seasonNames[currentSlideIndex]} (${currentSlideIndex + 1}/3)`;
+    }
+
+    prevBtn.addEventListener('click', () => {
+        currentSlideIndex--;
+        if (currentSlideIndex < 0) currentSlideIndex = seasons.length - 1;
+        updateCarousel();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentSlideIndex++;
+        if (currentSlideIndex >= seasons.length) currentSlideIndex = 0;
+        updateCarousel();
+    });
+
+    //logica de pesquisa 
+    
     searchInput.addEventListener('keyup', (e) => {
         const searchTerm = e.target.value.toLowerCase().trim();
+        const isSearching = searchTerm.length > 0;
+
+        if (isSearching) {
+            carouselControls.style.display = 'none';
+        } else {
+            // mobile - restaura controles do carrossel
+            carouselControls.style.display = '';
+        }
 
         cropListItems.forEach(item => {
-            //revisar agora a busca so texto dentro do span .crop-name
             const nameSpan = item.querySelector('.crop-name');
             const text = nameSpan.textContent.toLowerCase();
-            const parentCard = item.closest('.season-card');
             
             if (text.includes(searchTerm)) {
                 item.style.display = 'flex';
@@ -89,14 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        //esconde/mostra os cards de temporada
         document.querySelectorAll('.season-card').forEach(card => {
-            const visibleItems = card.querySelectorAll('.crop-list li[style="display: flex;"]');
-            if (visibleItems.length > 0 || searchTerm === "") {
-                card.style.display = 'block';
+            if (isSearching) {
+                const visibleItems = card.querySelectorAll('.crop-list li[style="display: flex;"]');
+                card.style.display = visibleItems.length > 0 ? 'block' : 'none';
             } else {
-                card.style.display = 'none';
+                card.style.display = ''; 
             }
         });
     });
+        updateCarousel();
 });

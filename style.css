@@ -1,3 +1,6 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
 
 body {
     font-family: 'Roboto Slab', Arial, sans-serif;
@@ -47,10 +50,13 @@ main {
     margin-bottom: 25px;
     text-align: center;
     background-color: #e8d6b3;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
 }
 
 #searchInput {
-    width: 80%;
+    width: 100%;
     max-width: 600px;
     padding: 12px 15px;
     border: 2px solid #9c6b44;
@@ -58,6 +64,11 @@ main {
     font-size: 16px;
     font-family: 'Roboto Slab', sans-serif;
     background-color: #fff;
+}
+
+#searchInput:focus {
+    border-color: #e69d00;
+    box-shadow: 0 0 5px rgba(230, 157, 0, 0.5);
 }
 
 #seasons-container {
@@ -143,9 +154,8 @@ main {
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* destaque especial para o 15*/
 .count-btn[data-value="15"].active {
-    background-color: #ffd700; /* Dourado */
+    background-color: #ffd700;
     color: #7c3314;
     border-color: #b8860b;
 }
@@ -154,4 +164,63 @@ main {
 .crop-list li.fully-completed .crop-name {
     text-decoration: line-through;
     opacity: 0.7;
+}
+
+.carousel-controls {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    
+    .carousel-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        background-color: #9c6b44;
+        border-radius: 8px;
+        color: #fddc7d;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    .nav-btn {
+        background-color: #e8d6b3;
+        border: 2px solid #5a3a22;
+        color: #5a3a22;
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-weight: bold;
+        font-family: 'Roboto Slab', serif;
+        cursor: pointer;
+    }
+    
+    .nav-btn:hover {
+        background-color: #d4c09b;
+    }
+
+    .season-card {
+        display: none; 
+        animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .season-card.active-slide {
+        display: block;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+    .count-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+    
+    #searchInput {
+        width: 100%;
+    }
 }
